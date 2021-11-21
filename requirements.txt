@@ -1,0 +1,11 @@
+numpy
+pandas
+plotly
+matplotlib
+statsmodels
+sklearn
+scipy
+joblib
+streamlit
+PIL
+preprocessing
