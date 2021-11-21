@@ -86,6 +86,7 @@ def main():
         prediction = model.predict(preprocess_df)
 
         if st.button('Predict'):
+            st.write(prediction)
             if prediction == 1:
                 st.warning('Yes, the customer will terminate the service.')
             else:
