@@ -16,21 +16,21 @@ def main():
     st.title('Customer Churn Prediction App')
 
       #Setting Application description
-    st.markdown("""
-     :dart:  This Streamlit app is made to predict customer churn in a ficitional telecommunication use case.
-    The application is functional for both online prediction and batch data prediction. \n
-    """)
-    st.markdown("<h3></h3>", unsafe_allow_html=True)
+    # st.markdown("""
+    #  :dart:  This Streamlit app is made to predict customer churn in a ficitional telecommunication use case.
+    # The application is functional for both online prediction and batch data prediction. \n
+    # """)
+    # st.markdown("<h3></h3>", unsafe_allow_html=True)
 
     #Setting Application sidebar default
     # image = Image.open('App.jpg')
     add_selectbox = st.sidebar.selectbox(
 	"How would you like to predict?", ("Online", "Batch"))
-    st.sidebar.info('This app is created to predict Customer Churn')
+    # st.sidebar.info('This app is created to predict Customer Churn')
     # st.sidebar.image(image)
 
     if add_selectbox == "Online":
-        st.info("Input data below")
+        # st.info("Input data below")
         #Based on our optimal features selection
         st.subheader("Demographic data")
         seniorcitizen = st.selectbox('Senior Citizen:', ('Yes', 'No'))
