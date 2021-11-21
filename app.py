@@ -102,20 +102,22 @@ def main():
             st.markdown("<h3></h3>", unsafe_allow_html=True)
             #Preprocess inputs
             preprocess_df = preprocess(data, "Batch")
-            st.write(preprocess_df.head())
+            st.write(model)
             if st.button('Predict'):
                 if len(preprocess_df) < 1:
                     st.warning('No file columns.')
                 else:
                     #Get batch prediction
+                    st.write(preprocess_df.head())
                     prediction = model.predict(preprocess_df)
-                    prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
-                    prediction_df = prediction_df.replace({1:'Yes, the customer will terminate the service.', 
-                                                        0:'No, the customer is happy with Telco Services.'})
+                    st.write(prediction)
+                    # prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
+                    # prediction_df = prediction_df.replace({1:'Yes, the customer will terminate the service.', 
+                    #                                     0:'No, the customer is happy with Telco Services.'})
 
-                    st.markdown("<h3></h3>", unsafe_allow_html=True)
-                    st.subheader('Prediction')
-                    st.write(prediction_df)
+                    # st.markdown("<h3></h3>", unsafe_allow_html=True)
+                    # st.subheader('Prediction')
+                    # st.write(prediction_df)
             
 if __name__ == '__main__':
         main()
