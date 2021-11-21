@@ -102,7 +102,7 @@ def main():
             st.markdown("<h3></h3>", unsafe_allow_html=True)
             #Preprocess inputs
             preprocess_df = preprocess(data, "Batch")
-            if st.button('Predict'):
+            if st.button('Predict') and len(preprocess_df) > 1:
                 #Get batch prediction
                 prediction = model.predict(preprocess_df)
                 prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
