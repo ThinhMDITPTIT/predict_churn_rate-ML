@@ -1,11 +1,12 @@
 numpy
 pandas
 plotly
-matplotlib
+matplotlib==3.3.2
 statsmodels
 sklearn
 scipy
 joblib
-streamlit
+streamlit==0.70.0
 PIL
+Pillow==8.0.1
 preprocessing
