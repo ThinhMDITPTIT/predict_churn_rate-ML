@@ -97,24 +97,22 @@ def main():
         st.subheader("Dataset upload")
         uploaded_file = st.file_uploader("Choose a file")
         if uploaded_file is not None:
-            data = pd.read_csv(uploaded_file, engine='python')
+            data = pd.read_csv(uploaded_file)
             #Get overview of data
             st.write(data.head())
             st.markdown("<h3></h3>", unsafe_allow_html=True)
             #Preprocess inputs
             preprocess_df = preprocess(data, "Batch")
-            st.write(model)
             st.write(preprocess_df.head())
-            prediction = model.predict(preprocess_df)
-            st.write(prediction)
+            st.write(model)
             if st.button('Predict'):
                 if len(preprocess_df) < 1:
                     st.warning('No file columns.')
                 else:
                     #Get batch prediction
                     st.write(preprocess_df.head())
-                    # prediction = model.predict(preprocess_df)
-                    # st.write(prediction)
+                    prediction = model.predict(preprocess_df)
+                    st.write(prediction)
                     # prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
                     # prediction_df = prediction_df.replace({1:'Yes, the customer will terminate the service.', 
                     #                                     0:'No, the customer is happy with Telco Services.'})
