@@ -97,24 +97,14 @@ def main():
         st.subheader("Dataset upload")
         uploaded_file = st.file_uploader("Choose a file")
         if uploaded_file is not None:
-            # data = pd.read_csv(uploaded_file)
+            data = pd.read_csv(uploaded_file)
+            uploaded_file.seek(0)
             #Get overview of data
-            # st.write(data.head())
-            # st.markdown("<h3></h3>", unsafe_allow_html=True)
+            st.write(data.head())
+            st.markdown("<h3></h3>", unsafe_allow_html=True)
             #Preprocess inputs
-            # preprocess_df = preprocess(data, "Batch")
-            # st.write(preprocess_df.head())
-            # st.write(model)
-            # prediction = model.predict(preprocess_df)
+            preprocess_df = preprocess(data, "Batch")
             if st.button('Predict'):
-            # if len(preprocess_df) < 1:
-            #     st.warning('No file columns.')
-            # else:
-                dataBuffer = pd.read_csv(uploaded_file)
-                #Get overview of data
-                st.write(dataBuffer.head())
-                st.markdown("<h3></h3>", unsafe_allow_html=True)
-                preprocess_df = preprocess(dataBuffer, "Batch")
                 #Get batch prediction
                 prediction = model.predict(preprocess_df)
                 # st.write(prediction)
