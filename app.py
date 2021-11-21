@@ -96,7 +96,7 @@ def main():
         st.subheader("Dataset upload")
         uploaded_file = st.file_uploader("Choose a file")
         if uploaded_file is not None:
-            data = pd.read_csv(uploaded_file)
+            data = pd.read_csv(uploaded_file, engine='python')
             #Get overview of data
             st.write(data.head())
             st.markdown("<h3></h3>", unsafe_allow_html=True)
