@@ -97,30 +97,32 @@ def main():
         st.subheader("Dataset upload")
         uploaded_file = st.file_uploader("Choose a file")
         if uploaded_file is not None:
-            data = pd.read_csv(uploaded_file)
+            # data = pd.read_csv(uploaded_file)
             #Get overview of data
-            st.write(data.head())
-            st.markdown("<h3></h3>", unsafe_allow_html=True)
+            # st.write(data.head())
+            # st.markdown("<h3></h3>", unsafe_allow_html=True)
             #Preprocess inputs
-            preprocess_df = preprocess(data, "Batch")
-            st.write(preprocess_df.head())
-            st.write(model)
+            # preprocess_df = preprocess(data, "Batch")
+            # st.write(preprocess_df.head())
+            # st.write(model)
             # prediction = model.predict(preprocess_df)
             if st.button('Predict'):
-                if len(preprocess_df) < 1:
-                    st.warning('No file columns.')
-                else:
-                    #Get batch prediction
-                    st.write(preprocess_df.head())
-                    # prediction = model.predict(preprocess_df)
-                    # st.write(prediction)
-                    # prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
-                    # prediction_df = prediction_df.replace({1:'Yes, the customer will terminate the service.', 
-                    #                                     0:'No, the customer is happy with Telco Services.'})
+            # if len(preprocess_df) < 1:
+                # st.warning('No file columns.')
+            # else:
+                data = pd.read_csv(uploaded_file)
+                preprocess_df = preprocess(data, "Batch")
+                #Get batch prediction
+                st.write(preprocess_df.head())
+                # prediction = model.predict(preprocess_df)
+                # st.write(prediction)
+                # prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
+                # prediction_df = prediction_df.replace({1:'Yes, the customer will terminate the service.', 
+                #                                     0:'No, the customer is happy with Telco Services.'})
 
-                    # st.markdown("<h3></h3>", unsafe_allow_html=True)
-                    # st.subheader('Prediction')
-                    # st.write(prediction_df)
+                # st.markdown("<h3></h3>", unsafe_allow_html=True)
+                # st.subheader('Prediction')
+                # st.write(prediction_df)
             
 if __name__ == '__main__':
         main()
