@@ -110,8 +110,8 @@ def main():
                 else:
                     #Get batch prediction
                     st.write(preprocess_df.head())
-                    prediction = model.predict(preprocess_df)
-                    st.write(prediction)
+                    # prediction = model.predict(preprocess_df)
+                    # st.write(prediction)
                     # prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
                     # prediction_df = prediction_df.replace({1:'Yes, the customer will terminate the service.', 
                     #                                     0:'No, the customer is happy with Telco Services.'})
