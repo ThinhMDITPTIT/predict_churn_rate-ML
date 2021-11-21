@@ -104,6 +104,9 @@ def main():
             #Preprocess inputs
             preprocess_df = preprocess(data, "Batch")
             st.write(model)
+            st.write(preprocess_df.head())
+            prediction = model.predict(preprocess_df)
+            st.write(prediction)
             if st.button('Predict'):
                 if len(preprocess_df) < 1:
                     st.warning('No file columns.')
