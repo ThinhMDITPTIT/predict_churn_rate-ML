@@ -13,7 +13,7 @@ from preprocessing import preprocess
 
 def main():
     #Setting Application title
-    st.title('Telco Customer Churn Prediction App')
+    st.title('Customer Churn Prediction App')
 
       #Setting Application description
     st.markdown("""
@@ -23,11 +23,11 @@ def main():
     st.markdown("<h3></h3>", unsafe_allow_html=True)
 
     #Setting Application sidebar default
-    image = Image.open('App.jpg')
+    # image = Image.open('App.jpg')
     add_selectbox = st.sidebar.selectbox(
 	"How would you like to predict?", ("Online", "Batch"))
     st.sidebar.info('This app is created to predict Customer Churn')
-    st.sidebar.image(image)
+    # st.sidebar.image(image)
 
     if add_selectbox == "Online":
         st.info("Input data below")
