@@ -22,7 +22,7 @@ def main():
         mutliplelines = stlit.selectbox(
             "Nhiều đường truyền:", ("Yes", "No", "No phone service")
         )
-        phoneservice = stlit.selectbox("Phone Service:", ("Yes", "No"))
+        phoneservice = stlit.selectbox("Dịch vụ di động:", ("Yes", "No"))
         internetservice = stlit.selectbox(
             "Dịch vụ Internet:", ("DSL", "Fiber optic", "No")
         )
