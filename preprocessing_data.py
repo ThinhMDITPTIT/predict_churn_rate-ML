@@ -1,21 +1,16 @@
-import pandas as pdas
 from sklearn.preprocessing import MinMaxScaler
+import pandas as pdas
 
-
-def preprocess(dataframe, option):
-    """
-    This function is to cover all the preprocessing steps on the churn dataframe. It involves selecting important features, encoding categorical data, handling missing values,feature scaling and splitting the data
-    """
-    # Defining the map function
+# Tiền xử lý dữ liệu đầu vào:
+def preprocess_data(dtframe, churn_opt):
     def binary_map(feature):
         return feature.map({"Yes": 1, "No": 0})
 
-    # Encode binary categorical features
+    # Chuẩn hoá các thuộc tính
     binary_list = ["SeniorCitizen", "Dependents", "PhoneService", "PaperlessBilling"]
-    dataframe[binary_list] = dataframe[binary_list].apply(binary_map)
+    dtframe[binary_list] = dtframe[binary_list].apply(binary_map)
 
-    # Drop values based on operational options
-    if option == "Online":
+    if churn_opt == "Online":
         columns = [
             "SeniorCitizen",
             "Dependents",
@@ -41,11 +36,11 @@ def preprocess(dataframe, option):
             "Contract_Two_year",
             "PaymentMethod_Electronic_check",
         ]
-        # Encoding the other categorical categoric features with more than two categories
-        dataframe = pdas.get_dummies(dataframe).reindex(columns=columns, fill_value=0)
-    elif option == "Batch":
+        # Chuẩn hoá các trường thuộc tính có nhiều hơn 2 loại giá trị
+        dtframe = pdas.get_dummies(dtframe).reindex(columns=columns, fill_value=0)
+    elif churn_opt == "Batch":
         pass
-        dataframe = dataframe[
+        dtframe = dtframe[
             [
                 "SeniorCitizen",
                 "Dependents",
@@ -90,14 +85,14 @@ def preprocess(dataframe, option):
             "Contract_Two_year",
             "PaymentMethod_Electronic_check",
         ]
-        # Encoding the other categorical categoric features with more than two categories
-        dataframe = pdas.get_dummies(dataframe).reindex(columns=columns, fill_value=0)
+        # Chuẩn hoá các trường thuộc tính có nhiều hơn 2 loại giá trị
+        dtframe = pdas.get_dummies(dtframe).reindex(columns=columns, fill_value=0)
     else:
-        print("Incorrect operational options")
+        print("Lựa chọn không tồn tại.")
 
-    # Feature scaling
-    sc = MinMaxScaler()
-    dataframe["tenure"] = sc.fit_transform(dataframe[["tenure"]])
-    dataframe["MonthlyCharges"] = sc.fit_transform(dataframe[["MonthlyCharges"]])
-    dataframe["TotalCharges"] = sc.fit_transform(dataframe[["TotalCharges"]])
-    return dataframe
+    # Chuẩn hoá dữ liệu sử dụng MinMaxScaler
+    scale = MinMaxScaler()
+    dtframe["tenure"] = scale.fit_transform(dtframe[["tenure"]])
+    dtframe["MonthlyCharges"] = scale.fit_transform(dtframe[["MonthlyCharges"]])
+    dtframe["TotalCharges"] = scale.fit_transform(dtframe[["TotalCharges"]])
+    return dtframe
