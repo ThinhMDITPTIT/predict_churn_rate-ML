@@ -5,6 +5,13 @@ model = joblib.load(r"./notebook/model.sav")
 from preprocessing_data import preprocess_data
 
 def main():
+    # Thiết lập ứng dụng
+    stlit.set_page_config(
+        page_title="Churn Prediction",
+        layout="centered",
+        initial_sidebar_state="auto",
+    )
+
     # Tiêu đề ứng dụng
     stlit.title("Ứng dụng dự đoán tỉ lệ Churn")
 
@@ -99,17 +106,20 @@ def main():
         stlit.markdown("<h3></h3>", unsafe_allow_html=True)
         stlit.write("Tổng quan dữ liệu đầu vào:")
         stlit.markdown("<h3></h3>", unsafe_allow_html=True)
-        stlit.dataframe(features_dtframe)
+        # stlit.dataframe(features_dtframe)
 
         # Preprocess inputs
+        stlit.write(features_dtframe)
         preprocess_dtframe = preprocess_data(features_dtframe, "Online")
-        prediction = model.predict(preprocess_dtframe)
 
         if stlit.button("Dự đoán"):
+            # stlit.write(preprocess_dtframe)
+            prediction = model.predict(preprocess_dtframe)
+            # stlit.write(prediction)
             if prediction == 1:
-                stlit.warning("Có, khách hàng sẽ ngưng sử dụng dịch vụ.")
+                stlit.warning("- Có thể khách hàng sẽ ngưng sử dụng dịch vụ. :(")
             else:
-                stlit.success("Không, khách hàng hài lòng với dịch vụ.")
+                stlit.success("+ Dường như khách hàng đang hài lòng với dịch vụ.")
 
     else:
         stlit.subheader("Dataset upload")
@@ -121,12 +131,13 @@ def main():
             stlit.markdown("<h3></h3>", unsafe_allow_html=True)
             preprocess_dtframe = preprocess_data(data, "Batch")
             if stlit.button("Dự đoán"):
+                # stlit.write(preprocess_dtframe)
                 prediction = model.predict(preprocess_dtframe)
                 prediction_df = pdas.DataFrame(prediction, columns=["Predictions"])
                 prediction_df = prediction_df.replace(
                     {
-                        1: "Có, khách hàng sẽ ngưng sử dụng dịch vụ.",
-                        0: "Không, khách hàng hài lòng với dịch vụ.",
+                        1: "- Có thể khách hàng sẽ ngưng sử dụng dịch vụ. :(",
+                        0: "+ Dường như khách hàng đang hài lòng với dịch vụ.",
                     }
                 )
 

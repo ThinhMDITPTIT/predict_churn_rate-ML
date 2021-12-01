@@ -10,6 +10,9 @@ def preprocess_data(dtframe, churn_opt):
     binary_list = ["SeniorCitizen", "Dependents", "PhoneService", "PaperlessBilling"]
     dtframe[binary_list] = dtframe[binary_list].apply(binary_map)
 
+    # Chuẩn hoá dữ liệu sử dụng MinMaxScaler
+    scale = MinMaxScaler()
+
     if churn_opt == "Online":
         columns = [
             "SeniorCitizen",
@@ -38,6 +41,15 @@ def preprocess_data(dtframe, churn_opt):
         ]
         # Chuẩn hoá các trường thuộc tính có nhiều hơn 2 loại giá trị
         dtframe = pdas.get_dummies(dtframe).reindex(columns=columns, fill_value=0)
+        
+        temp_min = {'tenure': 0, 'MonthlyCharges': 0, 'TotalCharges': 0}
+        temp_max = {'tenure': 72, 'MonthlyCharges': 150, 'TotalCharges': 10000}
+        dtframe = dtframe.append(temp_min, ignore_index = True)
+        dtframe = dtframe.append(temp_max, ignore_index = True)
+        dtframe["tenure"] = scale.fit_transform(dtframe[["tenure"]])
+        dtframe["MonthlyCharges"] = scale.fit_transform(dtframe[["MonthlyCharges"]])
+        dtframe["TotalCharges"] = scale.fit_transform(dtframe[["TotalCharges"]])
+        dtframe = dtframe.iloc[:-2 , :]
     elif churn_opt == "Batch":
         pass
         dtframe = dtframe[
@@ -87,12 +99,11 @@ def preprocess_data(dtframe, churn_opt):
         ]
         # Chuẩn hoá các trường thuộc tính có nhiều hơn 2 loại giá trị
         dtframe = pdas.get_dummies(dtframe).reindex(columns=columns, fill_value=0)
+
+        dtframe["tenure"] = scale.fit_transform(dtframe[["tenure"]])
+        dtframe["MonthlyCharges"] = scale.fit_transform(dtframe[["MonthlyCharges"]])
+        dtframe["TotalCharges"] = scale.fit_transform(dtframe[["TotalCharges"]])
     else:
         print("Lựa chọn không tồn tại.")
 
-    # Chuẩn hoá dữ liệu sử dụng MinMaxScaler
-    scale = MinMaxScaler()
-    dtframe["tenure"] = scale.fit_transform(dtframe[["tenure"]])
-    dtframe["MonthlyCharges"] = scale.fit_transform(dtframe[["MonthlyCharges"]])
-    dtframe["TotalCharges"] = scale.fit_transform(dtframe[["TotalCharges"]])
     return dtframe
